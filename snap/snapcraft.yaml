@@ -1,0 +1,24 @@
+name: ubuntu-core-slides
+version: '1.0' 
+summary: Ubuntu core set of slides
+description: |
+  This snap contains a simple webserver with ubuntu core slides.
+  It's compatible with booth-demo-manager for auto-detecting its content.
+grade: stable
+confinement: strict
+
+apps:
+  ubuntu-core-slides:
+    command: webserver -p 9001 www
+    daemon: simple
+    restart-condition: always
+    plugs: [network-bind]
+
+parts:
+  slides:
+    source: .
+    plugin: dump
+  webserver:
+    source: https://github.com/ubuntu/simple-webserver-part.git
+    plugin: go
+    go-importpath: github.com/ubuntu/simple-webserver-part
